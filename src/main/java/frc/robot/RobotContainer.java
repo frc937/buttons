@@ -5,10 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -20,11 +20,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandGenericHID controller =
+      new CommandGenericHID(OperatorConstants.CONTROLLER_PORT);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -42,13 +41,21 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    /* Don't worry, I didn't write this BS boilerplate by hand. I generated it with a python script. */
+    controller.button(0).whileTrue(getButtonPrintCommand(0));
+    controller.button(1).whileTrue(getButtonPrintCommand(1));
+    controller.button(2).whileTrue(getButtonPrintCommand(2));
+    controller.button(3).whileTrue(getButtonPrintCommand(3));
+    controller.button(4).whileTrue(getButtonPrintCommand(4));
+    controller.button(5).whileTrue(getButtonPrintCommand(5));
+    controller.button(6).whileTrue(getButtonPrintCommand(6));
+    controller.button(7).whileTrue(getButtonPrintCommand(7));
+    controller.button(8).whileTrue(getButtonPrintCommand(8));
+    controller.button(9).whileTrue(getButtonPrintCommand(9));
+    controller.button(10).whileTrue(getButtonPrintCommand(10));
+    controller.button(11).whileTrue(getButtonPrintCommand(11));
   }
 
   /**
@@ -58,6 +65,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
+  }
+
+  private Command getButtonPrintCommand(int button) {
+    return new PrintCommand("Button " + button + " pressed");
   }
 }
