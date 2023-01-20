@@ -56,6 +56,16 @@ public class RobotContainer {
     controller.button(9).whileTrue(getButtonPrintCommand(9));
     controller.button(10).whileTrue(getButtonPrintCommand(10));
     controller.button(11).whileTrue(getButtonPrintCommand(11));
+    
+    /* This boilerplate I did write by hand. It was torture. */
+    controller.povUp().whileTrue(new PrintCommand("POV up pressed"));
+    controller.povUpRight().whileTrue(new PrintCommand("POV up right pressed"));
+    controller.povRight().whileTrue(new PrintCommand("POV right pressed"));
+    controller.povDownRight().whileTrue(new PrintCommand("POV down right pressed"));
+    controller.povDown().whileTrue(new PrintCommand("POV down"));
+    controller.povDownLeft().whileTrue(new PrintCommand("POV down right pressed"));
+    controller.povLeft().whileTrue(new PrintCommand("POV right pressed"));
+    controller.povUpLeft().whileTrue(new PrintCommand("POV up right pressed"));
   }
 
   /**
@@ -69,6 +79,18 @@ public class RobotContainer {
   }
 
   private Command getButtonPrintCommand(int button) {
+    /* This proooooobably creates a LOT of new PrintCommand objects when
+     * the button is held, so hopefully Java is smart enough to clean
+     * that up
+     */
     return new PrintCommand("Button " + button + " pressed");
+  }
+
+  public CommandGenericHID getController() {
+    /* The existence of this method and what I'm doing with it only make
+     * me more confident that this project would work best in a non-command-
+     * based format
+     */
+    return controller;
   }
 }

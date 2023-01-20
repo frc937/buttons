@@ -44,6 +44,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    /* this is so dumb i swear */
+    System.out.println("Axis 0 is at angle: " + m_robotContainer.getController().getRawAxis(0));
+    System.out.println("Axis 1 is at angle: " + m_robotContainer.getController().getRawAxis(1));
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
